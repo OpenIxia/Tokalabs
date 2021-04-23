@@ -10,10 +10,10 @@ This reservation script isn't the only style.  Just an example. This example tak
 
 The Sandbox yml file should have the followings:
 
-   sdloControllerIp: 10.10.10.2
-   user: admin
-   password: password
-   sandbox: gitlab-pytest
+   sdloControllerIp: 10.10.10.2  <-- The Tokalabs controller IP
+   user: admin                   <-- Tokalabs login
+   password: password            <-- Tokalabs login password
+   sandbox: testbed_1            <-- The name of a sandbox
 
 Usage:
    To reserve a sandbox: python reserveSandbox.py -sandbox testbed_1.yml -reserve
