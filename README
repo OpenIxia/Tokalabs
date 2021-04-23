@@ -2,12 +2,14 @@ Tokalabs: sdloAssistant.py
 By: Hubert Gee
 
 A library that sends Tokalabs REST APIs from your client to the Tokalabs controller.
+This repo includes a Python script that reserves and releases a sandbox called reserveSandbox.py.
+This reservation script isn't the only style.  Just an example. This example takes in two args:
 
-Requirements
-   - pip install requests
-   - a sandbox yml file
+   1> -sandbox 
+   2> -reserve or -release
 
-Sandbox yml file should have the followings:
+The Sandbox yml file should have the followings:
+
    sdloControllerIp: 10.10.10.2
    user: admin
    password: password
@@ -17,5 +19,7 @@ Usage:
    To reserve a sandbox: python reserveSandbox.py -sandbox testbed_1.yml -reserve
    To release a sandbox: python reserveSandbox.py -sandbox testbed_1.yml -release
 
+
 The sdloAssistant.py library has many more common configuration APIs.
+Please open it up to explore all the functions.
 
