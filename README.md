@@ -1,5 +1,5 @@
-# Tokalabs: sdloAssistant.py
-# By Hubert Gee
+Tokalabs: sdloAssistant.py
+By: Hubert Gee
 
 A library that sends Tokalabs REST APIs from your client to the Tokalabs controller.
 
