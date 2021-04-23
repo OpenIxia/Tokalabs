@@ -11,7 +11,7 @@ There are two ways to use this class:
     sandbox_1 = sdloAssistant.Controller(sdloControllerIp, username, password, sandbox=sandboxName)
     sandbox_1.reserve()
     
-2> This option allows you create just one instance and use setSandbox() to switch
+2> This option creates just one instance and use setSandbox() to switch
     sandboxes by sandbox names.
     
     sandbox = sdloAssistant.Controller(sdloControllerIp, username, password)
@@ -23,6 +23,9 @@ To run a suite in a sandbox instance, pass in the suite name to the runSuite() f
 Requirements
    - Python 3.7
    - requests module
+   
+By Hubert Gee
+
 """
 
 from __future__ import absolute_import, print_function, division
@@ -34,9 +37,6 @@ from pprint import pprint
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 class Controller:
-    """
-
-    """
     logFile = None
 
     def __init__(self, controllerIp, user, password, sandbox=None, logLevel='debug'):
