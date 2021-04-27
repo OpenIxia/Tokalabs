@@ -15,7 +15,10 @@ Requirements
    - sandbox yml config file
     
 Usage:
-   reserveSandbox.py -sandbox /path/sandbox.yml -reserve|-release
+   python reserveSandbox.py -sandbox /path/sandbox.yml -reserve|-release
+   
+   # -forceTakeOwnership: Include this parameter to force takeover the sandbox if sandbox is already reserve.
+   python reserveSandbox.py -sandbox /path/sandbox.yml -reserve -forceTakeOwnership
 """
 
 import sys, os, traceback, yaml, argparse
@@ -23,29 +26,29 @@ import sdloAssistant
 
 try:
     parser = argparse.ArgumentParser()
-    parser.add_argument('-sandbox', type=str, help='The sandbox yml config file')
+    parser.add_argument('-sandbox', help='The sandbox yml config file')
     parser.add_argument('-reserve', action='store_true', help='Reserve the sandbox')
     parser.add_argument('-release', action='store_true', help='Release the sandbox.')
+    parser.add_argument('-forceTakeOwnership', action='store_true', default=False,
+                        help='For sandbox reservation only. Force take ownership of sandbox if it is reserved.')
     args = parser.parse_args()
     
     if not os.path.exists(args.sandbox):
         raise Exception(f'No such config file found: {args.sandbox}')
 
     with open(args.sandbox) as paramsObj:
-        params = yaml.load(paramsObj, Loader=yaml.FullLoader)
+        params = yaml.safe_load(paramsObj)
         
     print(f'\nconfigFile params: {params}')
-    
+
     sandboxObj = sdloAssistant.Controller(params['sdloControllerIp'], params['user'], params['password'])
 
+    # Set the sandbox name to use
     sandboxObj.setSandbox(params['sandbox'])
-    sandboxKeywords = sandboxObj.getSandboxKeywords()
-    
+
     if args.reserve:
-        sandboxObj.reserve(forceTakeOwnership=sandboxKeywords['forceTakeSandboxOwnership'])
-        ixiaPorts,dutPorts = sandboxObj.getDevicePorts('VMone', 'VMone2', isSrcDeviceIxia=True)
-        sandboxObj.logInfo(f'\n\tIxiaPorts: {ixiaPorts}\n\tRouterPorts: {dutPorts}\n')
-    
+        sandboxObj.reserve(forceTakeOwnership=args.forceTakeOwnership)
+
     if args.release:
         sandboxObj.release()
 
