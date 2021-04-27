@@ -240,7 +240,7 @@ class Controller:
                 self.release()
                 break
 
-            if result == True and boolforceTakeOwnership in [False, 'False']:
+            if result == True and forceTakeOwnership in [False, 'False']:
                 self.logInternal('Sandbox [{}] is currently reserved. Waiting for owner to release it.'.format(self.sandbox))
                 time.sleep(waitInterval)
                 continue
@@ -705,6 +705,8 @@ class Controller:
                      Refer to the Tokalabs API user guide for all the data details.
 
         Example:
+           # The abstrctId must be unique.  For traffic generator, the prefix is TG.
+           # For servers, routers, switches, etc, the prefix is DUT.
            sandboxData = {'type': 'regular', 'name': 'hgeeSandbox',
                           'devices':[{'name': 'IxNetworkAPIServer', 'abstractId': 'DUT1'}],
                           'indirectConnections': [],
